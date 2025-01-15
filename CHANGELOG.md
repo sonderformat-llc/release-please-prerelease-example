@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.0](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.5.0...v1.6.0) (2025-01-15)
+
+
+### Features
+
+* test ([8eee652](https://github.com/Aaron-Ritter/example-app-release-please/commit/8eee652d52ecdb36bb45db2879d61b04f9b9701e))
+* test2 ([16e2238](https://github.com/Aaron-Ritter/example-app-release-please/commit/16e2238cfbb477c7142930035321fcf3ebec70d0))
+
+
+### Bug Fixes
+
+* test ([56c3fcc](https://github.com/Aaron-Ritter/example-app-release-please/commit/56c3fcc8f8ccc9d4de10f48d8e8be15358e3f5d0))
+* test2 ([b639d0b](https://github.com/Aaron-Ritter/example-app-release-please/commit/b639d0bb967861ead75b176ba0b0274cc8825fc3))
+
 ## [1.6.0-beta.1](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.6.0-beta...v1.6.0-beta.1) (2025-01-15)
 
 
