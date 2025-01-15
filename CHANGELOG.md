@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0-beta.9](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.5.0-beta.8...v1.5.0-beta.9) (2025-01-15)
+
+
+### Features
+
+* initial draft ([706257c](https://github.com/Aaron-Ritter/example-app-release-please/commit/706257c7fdc21579eff0e0596fbe5af36d98741d))
+
 ## [1.5.0-beta.8](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.5.0-beta.7...v1.5.0-beta.8) (2025-01-15)
 
 
