@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0-beta.1](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.6.0-beta...v1.6.0-beta.1) (2025-01-15)
+
+
+### Features
+
+* test2 ([16e2238](https://github.com/Aaron-Ritter/example-app-release-please/commit/16e2238cfbb477c7142930035321fcf3ebec70d0))
+
 ## [1.6.0-beta](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.5.0...v1.6.0-beta) (2025-01-15)
 
 
