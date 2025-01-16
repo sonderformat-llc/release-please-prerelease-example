@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.4-rc](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.7.3...v1.7.4-rc) (2025-01-16)
+
+
+### Bug Fixes
+
+* test9 ([e46d5b3](https://github.com/Aaron-Ritter/example-app-release-please/commit/e46d5b317d214dbe778458079115dd31e8739602))
+
 ## [1.7.3](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.7.2...v1.7.3) (2025-01-16)
 
 
