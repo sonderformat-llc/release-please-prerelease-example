@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.0-rc](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.7.5...v1.8.0-rc) (2025-03-12)
+
+
+### Features
+
+* test13 ([23d62c1](https://github.com/Aaron-Ritter/example-app-release-please/commit/23d62c117061dfbdd551bcf22b1b526a5ace9498))
+
+
+### Bug Fixes
+
+* action debug ([1d1881d](https://github.com/Aaron-Ritter/example-app-release-please/commit/1d1881dd149ff5c7b0ba3c8eeea064510c21da10))
+* test12 ([8097661](https://github.com/Aaron-Ritter/example-app-release-please/commit/8097661c0635930339568d847fc6de75110ad5a2))
+
 ## [1.7.5](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.7.4...v1.7.5) (2025-01-16)
 
 
