@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.9.0-rc.1](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.9.0-rc...v1.9.0-rc.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* generic push ([0b3a7af](https://github.com/Aaron-Ritter/example-app-release-please/commit/0b3a7af8a76a989f2a31112334805f1d791038e5))
+* release-please--branches--main push ([364403f](https://github.com/Aaron-Ritter/example-app-release-please/commit/364403f7cab377c97e92259f10e6771d15f9730c))
+* test triggers ([887f294](https://github.com/Aaron-Ritter/example-app-release-please/commit/887f294efc03d4455afe3714e625fe96584db648))
+* test triggers ([f0810dc](https://github.com/Aaron-Ritter/example-app-release-please/commit/f0810dc7862f62620df4a81f7405c8bc51e96424))
+* test triggers ([f0d119d](https://github.com/Aaron-Ritter/example-app-release-please/commit/f0d119d6166e2be6985d4bd6b7ca524fc3388c2b))
+
 ## [1.9.0-rc](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.8.0...v1.9.0-rc) (2025-03-12)
 
 
