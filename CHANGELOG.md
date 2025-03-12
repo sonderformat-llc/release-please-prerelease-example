@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.9.0-rc](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.8.0...v1.9.0-rc) (2025-03-12)
+
+
+### Features
+
+* github-actions debug ([0ef2026](https://github.com/Aaron-Ritter/example-app-release-please/commit/0ef20263794db3a34cc01f38bed0a071ae437eb7))
+* github-actions debug ([a02dd31](https://github.com/Aaron-Ritter/example-app-release-please/commit/a02dd31d50f55ea8661a3482cd03dca1746a7d2f))
+* test14 ([f23fdab](https://github.com/Aaron-Ritter/example-app-release-please/commit/f23fdabe60c8c48d310b3318e576ca5acaa76411))
+
+
+### Bug Fixes
+
+* generic pullrequest ([8f9b66a](https://github.com/Aaron-Ritter/example-app-release-please/commit/8f9b66af277d0c8215db2072d1faeda90edbc132))
+* github-actions debug ([a82f774](https://github.com/Aaron-Ritter/example-app-release-please/commit/a82f774d2cdc620ce66386ac933ed30839e88e69))
+* repository_dispatch main ([b0ad513](https://github.com/Aaron-Ritter/example-app-release-please/commit/b0ad513df69ee705ea718239cff59be25f6d7f82))
+* test repository dispatch ([3148aa5](https://github.com/Aaron-Ritter/example-app-release-please/commit/3148aa557bc9bcbe6a3f38308454469a65676d47))
+
 ## [1.8.0](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.7.5...v1.8.0) (2025-03-12)
 
 
