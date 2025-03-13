@@ -4,13 +4,8 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
   pull_request:
-  workflow_dispatch:
-  workflow_run:
-    workflows: ["Release"] # Name of GitHub workflow to trigger in target repository+
-    branch:
-      - release-please--branches--main
-    types:
-      - completed
+    branches-ignore: ["release-please--branches--main"]
+
 
 jobs:
   Explore-GitHub-Actions:
