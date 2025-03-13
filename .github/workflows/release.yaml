@@ -8,13 +8,21 @@ on:
     types:
       - completed
 
+# The different jobs of this workflow need the following permissions
 permissions:
+  # The release-please-action requires these permissions to create a github release
   contents: write
+  # The release-please-action requires these permissions to create and modify pull requests
   pull-requests: write
+  # The release-please-action requires these permissions to read pull request labels
   repository-projects: read
-  # only required for workflows in private repositories
-  actions: read
+  # This workflow calls and imports multiple other workflows and actions. T
+  # It is only required for workflows in private repositories
+  actions: write
+  # The release workflow calls multiple code quality and security workflows which create security output
   security-events: write
+  # This is required to fetch internal or private CodeQL packs
+  packages: read
 
 concurrency:
   group: release
