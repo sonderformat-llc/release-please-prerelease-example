@@ -40,6 +40,16 @@ jobs:
         run: |
           echo "Prerelease Tests"
 
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Release Build Push Deploy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.prerelease-prep.outputs.tag_name }}
+        run: |
+          gh workflow run action-debug.yaml --ref release-please--branches--main
+
   prerelease:
     name: Create Prerelease and Release Pull Request
     runs-on: ubuntu-latest
