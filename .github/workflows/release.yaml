@@ -3,10 +3,6 @@ name: Release
 on:
   push:
     branches: ["main"]
-  workflow_run:
-    workflows: ["GitHub Actions Debug","GitHub Actions Debug2"] # Name of GitHub workflow to trigger in target repository
-    types:
-      - completed
 
 # The different jobs of this workflow need the following permissions
 permissions:
