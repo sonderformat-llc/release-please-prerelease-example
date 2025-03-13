@@ -24,6 +24,7 @@ jobs:
         with:
           config-file: ".github/prerelease-config.json"
           manifest-file: ".github/prerelease-manifest.json"
+          token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
 
   prerelease-test:
     name: Run Prerelease Tests
