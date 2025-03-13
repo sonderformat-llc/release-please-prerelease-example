@@ -6,7 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
   workflow_run:
-    workflows: ["Release"] # Name of GitHub workflow to trigger in target repository
+    workflows: ["Release"] # Name of GitHub workflow to trigger in target repository+
+    branch:
+      - release-please--branches--main
     types:
       - completed
 
