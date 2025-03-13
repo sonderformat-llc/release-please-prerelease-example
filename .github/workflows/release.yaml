@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
   workflow_run:
-    workflows: ["action-debug","actions-debug2"] # Name of GitHub workflow to trigger in target repository
+    workflows: ["GitHub Actions Debug","GitHub Actions Debug2"] # Name of GitHub workflow to trigger in target repository
     types:
       - completed
 
