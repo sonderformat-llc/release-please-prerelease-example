@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.9.0-rc.2](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.9.0-rc.1...v1.9.0-rc.2) (2025-03-15)
+
+
+### Bug Fixes
+
+* action ([#36](https://github.com/Aaron-Ritter/example-app-release-please/issues/36)) ([e0845c8](https://github.com/Aaron-Ritter/example-app-release-please/commit/e0845c825f4e1f52fed92f7e3167e8802862c690))
+* action trigger ([#35](https://github.com/Aaron-Ritter/example-app-release-please/issues/35)) ([e5fdb43](https://github.com/Aaron-Ritter/example-app-release-please/commit/e5fdb43e9b4df196afa7b6451a4ddd2f235f19a8))
+* action-debug.yaml ([7615825](https://github.com/Aaron-Ritter/example-app-release-please/commit/761582583308d02c9f7cdbc1e6b1c33ef2f3d3e0))
+* action-debug.yaml ([#33](https://github.com/Aaron-Ritter/example-app-release-please/issues/33)) ([ba5b2e0](https://github.com/Aaron-Ritter/example-app-release-please/commit/ba5b2e0a00e3320c3fbefca8bfd23f92226d2b5a))
+* branch-ignore test ([#43](https://github.com/Aaron-Ritter/example-app-release-please/issues/43)) ([0b654ee](https://github.com/Aaron-Ritter/example-app-release-please/commit/0b654eecff034bad3bc90cd94de369302a629e83))
+* own token test ([#42](https://github.com/Aaron-Ritter/example-app-release-please/issues/42)) ([3ea46d3](https://github.com/Aaron-Ritter/example-app-release-please/commit/3ea46d399f99cc17df932d385954b5b7fdaca3de))
+* release.yaml ([e541ef4](https://github.com/Aaron-Ritter/example-app-release-please/commit/e541ef42bf7fbef5e2704c723de129de2358aea9))
+* release.yaml ([#34](https://github.com/Aaron-Ritter/example-app-release-please/issues/34)) ([0dc4d0a](https://github.com/Aaron-Ritter/example-app-release-please/commit/0dc4d0a7153426db8917311d6c29622629b6ba31))
+* test triggers ([#32](https://github.com/Aaron-Ritter/example-app-release-please/issues/32)) ([50a72e3](https://github.com/Aaron-Ritter/example-app-release-please/commit/50a72e35b6703e0ae552741f6d8a79208f22b9ae))
+* test triggers ([#38](https://github.com/Aaron-Ritter/example-app-release-please/issues/38)) ([20a0a46](https://github.com/Aaron-Ritter/example-app-release-please/commit/20a0a46a3eebb68d662db3c102fef46dfbaa20d9))
+* test triggers ([#39](https://github.com/Aaron-Ritter/example-app-release-please/issues/39)) ([a72964b](https://github.com/Aaron-Ritter/example-app-release-please/commit/a72964b7acdb1e7217a83488e1ca841a6900d543))
+* test triggers ([#40](https://github.com/Aaron-Ritter/example-app-release-please/issues/40)) ([600edc8](https://github.com/Aaron-Ritter/example-app-release-please/commit/600edc87851edc8e1c08fd0554172dbb433f84b4))
+* test15 ([417546b](https://github.com/Aaron-Ritter/example-app-release-please/commit/417546b1da7147f3424e65f10468e33a76dba876))
+* test16 ([#31](https://github.com/Aaron-Ritter/example-app-release-please/issues/31)) ([07df7ea](https://github.com/Aaron-Ritter/example-app-release-please/commit/07df7eab68f74540c94c525c127a8f42d10586fe))
+* testing write-all permissions ([#41](https://github.com/Aaron-Ritter/example-app-release-please/issues/41)) ([667b0a0](https://github.com/Aaron-Ritter/example-app-release-please/commit/667b0a02a54199de7addc0936f3be966b7fb35b4))
+
 ## [1.9.0-rc.1](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.9.0-rc...v1.9.0-rc.1) (2025-03-12)
 
 
