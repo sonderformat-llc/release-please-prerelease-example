@@ -33,7 +33,7 @@ jobs:
           console.error('One of the versions is undefined');
           process.exit(1);
           }
-            if (semver.lt(prereleaseVersion, releaseVersion)) {
+            if (semver.lt(releaseVersion, prereleaseVersion)) {
             console.log('Prerelease version is older than release version');
             process.exit(1);
           } else {
