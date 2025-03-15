@@ -1,0 +1,28 @@
+# This workflow checks if the release and prerelease manifest is in sync.
+
+name: Check Manifest Sync
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Check-Manifest-Sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Compare prerelease and release manifests semver
+        env:
+          PRERELEASE_MANIFEST_PATH: .github/prerelease-manifest.json
+          RELEASE_MANIFEST_PATH: .github/release-manifest.json
+        # The prerelease is not allowed to be an older version than the release
+        run: |
+          echo "Comparing prerelease and release manifests"
+          PRERELEASE_VERSION=$(jq -r '.["."]' $PRERELEASE_MANIFEST_PATH)
+          RELEASE_VERSION=$(jq -r '.["."]' $RELEASE_MANIFEST_PATH)
+          if [[ $PRERELEASE_VERSION < $RELEASE_VERSION ]]; then
+            echo "Prerelease version is older than release version"
+            exit 1
+          fi
