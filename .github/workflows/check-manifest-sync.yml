@@ -23,11 +23,17 @@ jobs:
           npm install semver
           PRERELEASE_VERSION=$(jq -r '.["."]' $PRERELEASE_MANIFEST_PATH)
           RELEASE_VERSION=$(jq -r '.["."]' $RELEASE_MANIFEST_PATH)
+          echo "Prerelease version: $PRERELEASE_VERSION"
+          echo "Release version: $RELEASE_VERSION"
           node -e "
           const semver = require('semver');
           const prereleaseVersion = process.env.PRERELEASE_VERSION;
           const releaseVersion = process.env.RELEASE_VERSION;
-          if (semver.lt(prereleaseVersion, releaseVersion)) {
+          if (!prereleaseVersion || !releaseVersion) {
+          console.error('One of the versions is undefined');
+          process.exit(1);
+          }
+            if (semver.lt(prereleaseVersion, releaseVersion)) {
             console.log('Prerelease version is older than release version');
             process.exit(1);
           } else {
