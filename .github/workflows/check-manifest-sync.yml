@@ -27,8 +27,8 @@ jobs:
           echo "Release version: $RELEASE_VERSION"
           node -e "
           const semver = require('semver');
-          const prereleaseVersion = process.env.PRERELEASE_VERSION;
-          const releaseVersion = process.env.RELEASE_VERSION;
+          const prereleaseVersion = '$PRERELEASE_VERSION';
+          const releaseVersion = '$RELEASE_VERSION';
           if (!prereleaseVersion || !releaseVersion) {
           console.error('One of the versions is undefined');
           process.exit(1);
