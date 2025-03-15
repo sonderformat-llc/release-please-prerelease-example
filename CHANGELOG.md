@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1-rc](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.9.0...v1.9.1-rc) (2025-03-15)
+
+
+### Bug Fixes
+
+* test 17 ([#48](https://github.com/Aaron-Ritter/example-app-release-please/issues/48)) ([fbdc4f0](https://github.com/Aaron-Ritter/example-app-release-please/commit/fbdc4f0a59d8e15619c6f5c01b3ad4fcca1395a3))
+
 ## [1.9.0](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.8.0...v1.9.0) (2025-03-15)
 
 
