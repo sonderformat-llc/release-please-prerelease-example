@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.3...v1.9.4-rc) (2025-03-16)
+
+
+### Bug Fixes
+
+* **release:** add manifest update as a additonal file to release PR ([08fe9fa](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/08fe9fad5dbc688df427e6464b40fc51b19e4678))
+
 ## [1.9.3](https://github.com/Aaron-Ritter/example-app-release-please/compare/v1.9.2...v1.9.3) (2025-03-15)
 
 
