@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.6-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.5...v1.9.6-rc) (2025-03-16)
+
+
+### Bug Fixes
+
+* test extra-files ([ad93104](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/ad9310497ff007b24a5c2e7b0404d50c94b7fd6c))
+* test extra-files ([389511d](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/389511de6b05d277c95bbabfd6ff27c2f0fb0664))
+* test extra-files ([7752420](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/7752420eb7d131809a18968d1cfc374218a20737))
+
 ## [1.9.5](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.4...v1.9.5) (2025-03-16)
 
 
