@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4-rc.8](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.4-rc.7...v1.9.4-rc.8) (2025-03-16)
+
+
+### Bug Fixes
+
+* **release:** update jsonpath ([3336d18](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/3336d185479d1fb0932e7c7b2e7297d783703b30))
+
 ## [1.9.4-rc.7](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.4-rc.6...v1.9.4-rc.7) (2025-03-16)
 
 
