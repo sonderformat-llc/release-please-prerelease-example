@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.7-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.6...v1.9.7-rc) (2025-03-16)
+
+
+### Bug Fixes
+
+* test 23 ([#74](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/74)) ([7358496](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/7358496bce1f25d6b16d43b1d62162626ba7742f))
+
 ## [1.9.6](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.5...v1.9.6) (2025-03-16)
 
 
