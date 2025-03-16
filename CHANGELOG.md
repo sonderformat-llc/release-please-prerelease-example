@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.9.4](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.3...v1.9.4) (2025-03-16)
+
+
+### Bug Fixes
+
+* **release:** add json update syntax ([8cc7c85](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/8cc7c85981feccdee4e1aa06e372cabd307dc38d))
+* **release:** add manifest update as a additonal file to release PR ([08fe9fa](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/08fe9fad5dbc688df427e6464b40fc51b19e4678))
+* **release:** update jsonpath ([0356b38](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/0356b3840d263adde624e89704e2c40ab79fd9ed))
+* **release:** update jsonpath ([0daaf98](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/0daaf98ddf9ee8e46cdec096fcf7c9a982c98ea0))
+* **release:** update jsonpath ([3336d18](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/3336d185479d1fb0932e7c7b2e7297d783703b30))
+* **release:** update jsonpath ([5ba0734](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/5ba0734b62f71b079264f23bda4c6c7c029cb014))
+* **release:** update jsonpath ([bdb29f5](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/bdb29f5fd12c2d3305e794e8f65fc88d0255e565))
+* **release:** update jsonpath ([1b3dca3](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/1b3dca3168747b1b2b276cdfcab7e1cd8db826de))
+* **release:** update jsonpath ([efa4473](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/efa44732bceb21dc33f239c183c8ee7c4bf3e7dd))
+* **release:** update jsonpath ([e39fea1](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/e39fea16e36b0f7ab8209c188586947b7bedb485))
+* **release:** update jsonpath ([496a2b3](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/496a2b35c4e7da2ca0000ff8d000f55262acef03))
+
 ## [1.9.4-rc.10](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.4-rc.9...v1.9.4-rc.10) (2025-03-16)
 
 
