@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4-rc.1](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.4-rc...v1.9.4-rc.1) (2025-03-16)
+
+
+### Bug Fixes
+
+* **release:** add json update syntax ([8cc7c85](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/8cc7c85981feccdee4e1aa06e372cabd307dc38d))
+
 ## [1.9.4-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.3...v1.9.4-rc) (2025-03-16)
 
 
