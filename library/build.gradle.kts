@@ -72,7 +72,7 @@ publishing {
                 groupId = "llc.sonderformat"
                 artifactId = "fusionauth-android-sdk"
                 // x-release-please-start-version
-                version = "1.9.7"
+                version = "1.9.8-rc"
                 // x-release-please-end
 
                 // And here are some more properties that go into the pom file.
