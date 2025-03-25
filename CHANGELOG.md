@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.8](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.7...v1.9.8) (2025-03-25)
+
+
+### Bug Fixes
+
+* add label-check, documentation and post-prerelease ([aaf257b](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/aaf257bdc0eef093c7ff2a629767452569254818))
+
 ## [1.9.8-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.7...v1.9.8-rc) (2025-03-19)
 
 
