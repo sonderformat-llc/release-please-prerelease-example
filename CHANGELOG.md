@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.2](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1...v1.10.2) (2025-05-08)
+
+
+### Miscellaneous Chores
+
+* **main:** release 1.10.2-rc ([#85](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/85)) ([b7ab707](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/b7ab707045786a58e6c8a4a6865a1a9ff2d962a9))
+
+
+### Docs
+
+* **README:** detail SOC 2 Compliance reasoning ([3ccd5d0](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/3ccd5d03300ea2ce20e379a66e6f606d1b4b4b11))
+
 ## [1.10.2-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1...v1.10.2-rc) (2025-05-08)
 
 
