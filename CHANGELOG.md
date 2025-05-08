@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.10.0](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.8...v1.10.0) (2025-05-08)
+
+
+### Features
+
+* **release:** extend changelog with additional commit types ([4b5b624](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/4b5b624acdb89e82b9cbef6745f3605a30bab3ac))
+
+
+### Bug Fixes
+
+* **release:** use GITHUB_TOKEN ([f6ea543](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/f6ea543c8175edf0c3f40691615fe0f4eafb874f))
+
+
+### Miscellaneous Chores
+
+* **main:** release 1.10.0-rc ([#80](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/80)) ([b1688ae](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/b1688aee3267c16aecf7374a2fb9a0589c57015e))
+
+
+### Docs
+
+* **README:** add guideline on how to extend and modify release-please ([62e120f](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/62e120f3929096076455c9eb9fef225771044030))
+* **README:** initial description of the repository ([f696e9e](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/f696e9e290e1050055afb4de6f4dbd2874e2be8f))
+
 ## [1.10.0-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.8...v1.10.0-rc) (2025-05-08)
 
 
