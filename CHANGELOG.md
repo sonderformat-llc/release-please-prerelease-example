@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.2-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1...v1.10.2-rc) (2025-05-08)
+
+
+### Docs
+
+* **README:** detail SOC 2 Compliance reasoning ([3ccd5d0](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/3ccd5d03300ea2ce20e379a66e6f606d1b4b4b11))
+
 ## [1.10.1](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.0...v1.10.1) (2025-05-08)
 
 
