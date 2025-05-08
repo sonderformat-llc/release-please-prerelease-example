@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1-rc.1](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1-rc...v1.10.1-rc.1) (2025-05-08)
+
+
+### Miscellaneous Chores
+
+* remove test file ([21552ea](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/21552eafdf45fa3757d80854388c7bab3d7eb22a))
+
 ## [1.10.1-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.0...v1.10.1-rc) (2025-05-08)
 
 
