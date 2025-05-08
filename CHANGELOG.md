@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.10.1](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.0...v1.10.1) (2025-05-08)
+
+
+### Miscellaneous Chores
+
+* **main:** release 1.10.1-rc ([#82](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/82)) ([449e0b9](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/449e0b9b51b75e29f1f2b01d4d44bd0e5e3a6ce7))
+* **main:** release 1.10.1-rc.1 ([#83](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/83)) ([3f5be7f](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/3f5be7f7bff3de01a9d2ac48cb3e997aa772bd84))
+* remove test file ([21552ea](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/21552eafdf45fa3757d80854388c7bab3d7eb22a))
+
+
+### Docs
+
+* **README:** add propper examples for commit types ([2fd38e4](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/2fd38e491067d28baaa4a1b7e95675502aef06c1))
+* **README:** update Changelog Management section ([5b295aa](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/5b295aad7bc80ba870abf40bd3c848756bd519a5))
+
 ## [1.10.1-rc.1](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1-rc...v1.10.1-rc.1) (2025-05-08)
 
 
