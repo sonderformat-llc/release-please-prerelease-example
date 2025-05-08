@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.1-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.0...v1.10.1-rc) (2025-05-08)
+
+
+### Docs
+
+* **README:** add propper examples for commit types ([2fd38e4](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/2fd38e491067d28baaa4a1b7e95675502aef06c1))
+* **README:** update Changelog Management section ([5b295aa](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/5b295aad7bc80ba870abf40bd3c848756bd519a5))
+
 ## [1.10.0](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.9.8...v1.10.0) (2025-05-08)
 
 
