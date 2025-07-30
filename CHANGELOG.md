@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.3-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.2...v1.10.3-rc) (2025-07-30)
+
+
+### Miscellaneous Chores
+
+* **release-config:** add prerelease flag to force release ([79ebe2f](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/79ebe2fa9c7b258a152b17717407e2ffc7f1b558))
+
 ## [1.10.2](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.1...v1.10.2) (2025-05-08)
 
 
