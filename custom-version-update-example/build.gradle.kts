@@ -70,9 +70,9 @@ publishing {
                 // automatically applied to the pom file). Your library will be
                 // referenced as ${groupId}:${artifactId}.
                 groupId = "llc.sonderformat"
-                artifactId = "fusionauth-android-sdk"
+                artifactId = "sonderformat-example-sdk"
                 // x-release-please-start-version
-                version = "1.10.3"
+                version = "1.10.2"
                 // x-release-please-end
 
                 // And here are some more properties that go into the pom file.
@@ -80,9 +80,9 @@ publishing {
                 // https://central.sonatype.org/publish/requirements/#sufficient-metadata
                 pom {
                     packaging = "aar"
-                    name.set("FusionAuth Android SDK")
-                    description.set("Android SDK for FusionAuth")
-                    url.set("https://github.com/FusionAuth/fusionauth-android-sdk/")
+                    name.set("SONDERFORMAT Example SDK")
+                    description.set("Example SDK for SONDERFORMAT")
+                    url.set("https://github.com/SONDERFORMAT/sonderformat-example-sdk/")
                     licenses {
                         license {
                             name.set("MIT License")
@@ -91,8 +91,8 @@ publishing {
                     }
                     developers {
                         developer {
-                            name.set("FusionAuth engineering")
-                            email.set("dev@fusionauth.io")
+                            name.set("SONDERFORMAT engineering")
+                            email.set("dev@sonderformat.io")
                         }
                     }
                     scm {

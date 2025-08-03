@@ -17,7 +17,7 @@
       "extra-files": [
         {
           "type": "generic",
-          "path": "library/build.gradle.kts"
+          "path": "custom-version-update-example/build.gradle.kts"
         }
       ]
     }
