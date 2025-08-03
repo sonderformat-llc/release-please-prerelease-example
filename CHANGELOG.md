@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.10.4-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.3...v1.10.4-rc) (2025-08-03)
+
+
+### Code Refactoring
+
+* cleanup files ([e14f356](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/e14f356502e66bdd48f21a3ba937924908db25ad))
+
+
+### Miscellaneous Chores
+
+* **license:** add Apache License 2.0 ([b44c7a1](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/b44c7a1efe3aeab4bb9ab0413b8815a1ca1ee320))
+
 ## [1.10.3](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.2...v1.10.3) (2025-07-30)
 
 
