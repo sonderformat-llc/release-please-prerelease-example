@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.5](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.4...v1.10.5) (2025-09-16)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump the prod-github-actions group with 2 updates ([#94](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/94)) ([c497b2d](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/c497b2d5cc7a78aac914b4b0832a9592d1735197))
+* **main:** release 1.10.5-rc ([#95](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/95)) ([50162cb](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/50162cb850e521560e2c414049171d0756c610ca))
+
 ## [1.10.5-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.4...v1.10.5-rc) (2025-08-20)
 
 
