@@ -72,7 +72,7 @@ publishing {
                 groupId = "llc.sonderformat"
                 artifactId = "sonderformat-example-sdk"
                 // x-release-please-start-version
-                version = "1.10.5"
+                version = "1.10.6-rc"
                 // x-release-please-end
 
                 // And here are some more properties that go into the pom file.
