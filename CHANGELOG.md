@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.6-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.5...v1.10.6-rc) (2025-10-29)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump googleapis/release-please-action ([#98](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/98)) ([95b3ee2](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/95b3ee2ff444587d92c426c31a3109befdb3578d))
+
 ## [1.10.5](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.4...v1.10.5) (2025-09-16)
 
 
