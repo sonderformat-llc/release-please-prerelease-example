@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Add labels to the repository if not present
         env:
@@ -47,7 +47,7 @@ jobs:
     steps:
       - id: release
         name: Run prerelease release-please
-        uses: googleapis/release-please-action@v4.4.1
+        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         with:
           config-file: ".github/prerelease-config.json"
           manifest-file: ".github/prerelease-manifest.json"
@@ -76,7 +76,7 @@ jobs:
           echo "Running pre-release step!"
 
       - name: Run release release-please
-        uses: googleapis/release-please-action@v4.4.1
+        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         with:
           config-file: ".github/release-config.json"
           manifest-file: ".github/release-manifest.json"
