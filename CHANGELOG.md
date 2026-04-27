@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.10.8-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.7...v1.10.8-rc) (2026-04-27)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump googleapis/release-please-action from 4.4.0 to 4.4.1 in the prod-github-actions group ([#107](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/107)) ([a319d2e](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/a319d2ec9c255c407eb52813e21ed4cbb88c4095))
+* update release-please-action to v5.0.0 SHA pin ([#109](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/109)) ([ac6da8e](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/ac6da8e4e1eca3ac0180aeb0a6c8a5b9c0df3d7c))
+
 ## [1.10.7](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.6...v1.10.7) (2025-12-13)
 
 
