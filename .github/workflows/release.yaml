@@ -44,9 +44,10 @@ jobs:
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
       # For named packages, use the <path>--tag_name output instead of the generic tag_name.
-      # The path separator "/" in package paths is replaced with "-" in the output key,
-      # so a package at "frontend" uses "frontend--tag_name".
-      tag_name: ${{ steps.release.outputs['frontend--tag_name'] }}
+      # Each package exposes its own output key using the pattern: <path>--tag_name
+      frontend_tag: ${{ steps.release.outputs['frontend--tag_name'] }}
+      backend_tag: ${{ steps.release.outputs['backend--tag_name'] }}
+      admin_tag: ${{ steps.release.outputs['admin--tag_name'] }}
     steps:
       - id: release
         name: Run prerelease release-please
@@ -71,7 +72,15 @@ jobs:
   prerelease:
     name: Create Prerelease and Release Pull Request
     runs-on: ubuntu-latest
-    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    # Trigger if any package created a prerelease (tag contains 'rc')
+    if: >-
+      ${{
+        needs.prerelease-prep.outputs.releases_created == 'true' && (
+          contains(needs.prerelease-prep.outputs.frontend_tag, 'rc') ||
+          contains(needs.prerelease-prep.outputs.backend_tag, 'rc') ||
+          contains(needs.prerelease-prep.outputs.admin_tag, 'rc')
+        )
+      }}
     needs: [ prerelease-prep ]
     steps:
       - name: Pre Release Step
@@ -99,7 +108,15 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
-    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && !contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    # Trigger if releases were created but none of the tags contain 'rc' (i.e. all are final releases)
+    if: >-
+      ${{
+        needs.prerelease-prep.outputs.releases_created == 'true' && !(
+          contains(needs.prerelease-prep.outputs.frontend_tag, 'rc') ||
+          contains(needs.prerelease-prep.outputs.backend_tag, 'rc') ||
+          contains(needs.prerelease-prep.outputs.admin_tag, 'rc')
+        )
+      }}
     needs: [ prerelease-prep ]
     steps:
       - name: Release Step

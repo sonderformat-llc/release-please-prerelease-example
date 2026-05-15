@@ -23,6 +23,26 @@
           "jsonpath": "$.frontend"
         }
       ]
+    },
+    "backend": {
+      "type": "generic",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": ".github/prerelease-manifest.json",
+          "jsonpath": "$.backend"
+        }
+      ]
+    },
+    "admin": {
+      "type": "generic",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": ".github/prerelease-manifest.json",
+          "jsonpath": "$.admin"
+        }
+      ]
     }
   }
 }

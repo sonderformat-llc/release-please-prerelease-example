@@ -52,14 +52,16 @@ Given all additional testing- and publish-workflows are implemented compliant, a
 ### Version Management
 
 In this example the workflow updates version information in:
-- `frontend/version.txt`: Simple version tracking for the named `frontend` package
+- `frontend/version.txt`: Version tracking for the `frontend` package
+- `backend/version.txt`: Version tracking for the `backend` package
+- `admin/version.txt`: Version tracking for the `admin` package
 - `.github/prerelease-manifest.json`: Version manifest for release-please
-- `custom-version-update-example/build.gradle.kts`: An additional file with a version marker, demonstrating how to keep arbitrary files in sync using the `extra-files` feature
+- `custom-version-update-example/build.gradle.kts`: An additional file with a version marker, demonstrating how to keep arbitrary files in sync using the `extra-files` feature (attached to the `frontend` package)
 
 ### Named Package vs Root Package
 
-This example uses a **named package** (`frontend`) instead of the root package (`.`).
-This is the recommended approach for monorepos or when you want to track multiple packages.
+This example uses **named packages** (`frontend`, `backend`, `admin`) instead of the root package (`.`).
+This is the recommended approach for monorepos with multiple independently versioned packages.
 
 **Key differences when using named packages:**
 
@@ -72,13 +74,40 @@ This is the recommended approach for monorepos or when you want to track multipl
 | Version file location | `version.txt` (repo root) | `frontend/version.txt` |
 | Changelog location | `CHANGELOG.md` (repo root) | `frontend/CHANGELOG.md` |
 
+#### Multi-Package Workflow Outputs
+
+When multiple packages are defined, each exposes its own `<path>--tag_name` output.
+The workflow exposes them individually and checks whether **any** tag contains `rc` to decide which
+branch of the workflow (prerelease vs. final release) should run:
+
+```yaml
+outputs:
+  releases_created: ${{ steps.release.outputs.releases_created }}
+  frontend_tag: ${{ steps.release.outputs['frontend--tag_name'] }}
+  backend_tag:  ${{ steps.release.outputs['backend--tag_name'] }}
+  admin_tag:    ${{ steps.release.outputs['admin--tag_name'] }}
+```
+
+The `prerelease` job condition then becomes:
+
+```yaml
+if: >-
+  ${{
+    needs.prerelease-prep.outputs.releases_created == 'true' && (
+      contains(needs.prerelease-prep.outputs.frontend_tag, 'rc') ||
+      contains(needs.prerelease-prep.outputs.backend_tag,  'rc') ||
+      contains(needs.prerelease-prep.outputs.admin_tag,    'rc')
+    )
+  }}
+```
+
 #### Why the `release-config.json` must update `prerelease-manifest.json`
 
 When a final release PR is merged, release-please only updates the `release-manifest.json`.
 Without additional configuration the `prerelease-manifest.json` is **not** updated, causing the
 next prerelease to calculate an incorrect version (e.g. `1.9.0-rc.1` after releasing `2.0.0`).
 
-The `extra-files` entry in `release-config.json` solves this by updating the
+Each package in `release-config.json` has an `extra-files` entry that updates its own key in
 `prerelease-manifest.json` as part of the release PR:
 
 ```json
