@@ -10,7 +10,7 @@
     { "type": "docs", "hidden": false, "section": "Docs" }
   ],
   "packages": {
-    ".": {
+    "frontend": {
       "type": "generic",
       "extra-files": [
         {
@@ -20,7 +20,7 @@
         {
           "type": "json",
           "path": ".github/prerelease-manifest.json",
-          "jsonpath": "$[\".\"]"
+          "jsonpath": "$.frontend"
         }
       ]
     }

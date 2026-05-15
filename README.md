@@ -52,9 +52,48 @@ Given all additional testing- and publish-workflows are implemented compliant, a
 ### Version Management
 
 In this example the workflow updates version information in:
-- `version.txt`: Simple version tracking
+- `frontend/version.txt`: Simple version tracking for the named `frontend` package
 - `.github/prerelease-manifest.json`: Version manifest for release-please
-- `library/build.gradle.kts`: Version in build configuration (using special markers)
+- `custom-version-update-example/build.gradle.kts`: An additional file with a version marker, demonstrating how to keep arbitrary files in sync using the `extra-files` feature
+
+### Named Package vs Root Package
+
+This example uses a **named package** (`frontend`) instead of the root package (`.`).
+This is the recommended approach for monorepos or when you want to track multiple packages.
+
+**Key differences when using named packages:**
+
+| Aspect | Root package (`.`) | Named package (e.g. `frontend`) |
+|--------|-------------------|----------------------------------|
+| Workflow output: tag name | `steps.release.outputs.tag_name` | `steps.release.outputs['frontend--tag_name']` |
+| Workflow output: releases created | `steps.release.outputs.releases_created` | `steps.release.outputs.releases_created` (overall) or `steps.release.outputs['frontend--releases_created']` (per package) |
+| Manifest key | `"."` | `"frontend"` |
+| `jsonpath` in `release-config.json` extra-files | `"$[\".\"]"` | `"$.frontend"` |
+| Version file location | `version.txt` (repo root) | `frontend/version.txt` |
+| Changelog location | `CHANGELOG.md` (repo root) | `frontend/CHANGELOG.md` |
+
+#### Why the `release-config.json` must update `prerelease-manifest.json`
+
+When a final release PR is merged, release-please only updates the `release-manifest.json`.
+Without additional configuration the `prerelease-manifest.json` is **not** updated, causing the
+next prerelease to calculate an incorrect version (e.g. `1.9.0-rc.1` after releasing `2.0.0`).
+
+The `extra-files` entry in `release-config.json` solves this by updating the
+`prerelease-manifest.json` as part of the release PR:
+
+```json
+{
+  "type": "json",
+  "path": ".github/prerelease-manifest.json",
+  "jsonpath": "$.frontend"
+}
+```
+
+> **JSONPath note:** Named packages use simple dot notation (e.g. `$.frontend`).
+> The root package uses bracket notation (`$["."]`) because `.` is a reserved
+> character in JSONPath expressions — it must be quoted inside brackets.
+
+This ensures both manifest files stay in sync after every release.
 
 ### Changelog Management
 
@@ -127,7 +166,8 @@ This section provides details on how to extend and modify the configuration file
   - `section`: The section title in the changelog
 
 - **packages**: Defines the package structure for monorepos or single packages:
-  - `.`: Represents the root package
+  - `.`: Represents the root package (single-package repos)
+  - `frontend`, `backend`, etc.: Named packages for monorepos
   - `type`: The package type (e.g., `generic`, `node`, `java`)
   - `extra-files`: Additional files to update with version information
 

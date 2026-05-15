@@ -43,7 +43,10 @@ jobs:
     needs: [ label-check ]
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+      # For named packages, use the <path>--tag_name output instead of the generic tag_name.
+      # The path separator "/" in package paths is replaced with "-" in the output key,
+      # so a package at "frontend" uses "frontend--tag_name".
+      tag_name: ${{ steps.release.outputs['frontend--tag_name'] }}
     steps:
       - id: release
         name: Run prerelease release-please

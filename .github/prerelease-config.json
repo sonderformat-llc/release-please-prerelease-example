@@ -12,7 +12,7 @@
     { "type": "docs", "hidden": false, "section": "Docs" }
   ],
   "packages": {
-    ".": {
+    "frontend": {
       "type": "generic",
       "extra-files": [
         {
