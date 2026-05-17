@@ -42,12 +42,37 @@ Given all additional testing- and publish-workflows are implemented compliant, a
 ### Workflow Stages
 
 1. **Label Check**: Creates the necessary labels for release-please PRs
-2. **Prerelease Preparation**: Creates or finalizes a prerelease pull request
-3. **Prerelease Testing**: Runs tests before creating the prerelease
-4. **Prerelease Creation**: Creates the prerelease and a subsequent release pull request
-5. **Post-Prerelease Steps**: Runs any necessary steps after prerelease
-6. **Release Creation**: Creates the final release
-7. **Post-Release Steps**: Runs any necessary steps after release
+2. **Prerelease Preparation** (`release.yaml`): Runs release-please once for all packages; outputs per-component tags
+3. **Create Release PRs** (`release.yaml`): When any RC tag is produced, runs release-please with `release-config.json` to open the final-release PRs
+4. **Component Release Workflows** (called in parallel from `release.yaml`):
+   - `release-frontend.yaml` — frontend-specific tests, build, and deploy
+   - `release-backend.yaml` — backend-specific tests, build, and deploy
+   - `release-admin.yaml` — admin-specific tests, build, and deploy
+
+Each component workflow receives two inputs from the orchestrator:
+- `releases_created` — whether release-please created a release on this run
+- `tag_name` — the tag produced for that specific package (e.g. `frontend-v1.11.0-rc.1`)
+
+Inside each component workflow the same logic applies:
+- **No release created** (`releases_created == 'false'`): run component tests
+- **RC tag** (`tag_name` contains `rc`): build and deploy the prerelease
+- **Final tag** (`tag_name` does not contain `rc`): build and deploy to production
+
+```
+push to main
+    |
+    v
+label-check
+    |
+    v
+prerelease-prep (release-please -> outputs: frontend_tag, backend_tag, admin_tag)
+    |
+    +---> create-release-prs  (if any tag is RC -> open final-release PRs)
+    |
+    +---> frontend-release  ---> release-frontend.yaml (tests / prerelease / release)
+    +---> backend-release   ---> release-backend.yaml  (tests / prerelease / release)
+    +---> admin-release     ---> release-admin.yaml    (tests / prerelease / release)
+```
 
 ### Version Management
 
@@ -74,32 +99,44 @@ This is the recommended approach for monorepos with multiple independently versi
 | Version file location | `version.txt` (repo root) | `frontend/version.txt` |
 | Changelog location | `CHANGELOG.md` (repo root) | `frontend/CHANGELOG.md` |
 
-#### Multi-Package Workflow Outputs
+#### Multi-Package Workflow Outputs and Component Workflows
 
 When multiple packages are defined, each exposes its own `<path>--tag_name` output.
-The workflow exposes them individually and checks whether **any** tag contains `rc` to decide which
-branch of the workflow (prerelease vs. final release) should run:
+The orchestrator (`release.yaml`) collects them and passes each one to the matching
+component workflow via `workflow_call`:
 
 ```yaml
+# In release.yaml — expose per-package tags
 outputs:
   releases_created: ${{ steps.release.outputs.releases_created }}
   frontend_tag: ${{ steps.release.outputs['frontend--tag_name'] }}
   backend_tag:  ${{ steps.release.outputs['backend--tag_name'] }}
   admin_tag:    ${{ steps.release.outputs['admin--tag_name'] }}
+
+# Call each component workflow in parallel
+frontend-release:
+  needs: [ prerelease-prep ]
+  uses: ./.github/workflows/release-frontend.yaml
+  with:
+    releases_created: ${{ needs.prerelease-prep.outputs.releases_created }}
+    tag_name: ${{ needs.prerelease-prep.outputs.frontend_tag }}
 ```
 
-The `prerelease` job condition then becomes:
+Inside each component workflow (`release-frontend.yaml`, `release-backend.yaml`,
+`release-admin.yaml`) the job conditions use the per-component `inputs.tag_name`:
 
 ```yaml
-if: >-
-  ${{
-    needs.prerelease-prep.outputs.releases_created == 'true' && (
-      contains(needs.prerelease-prep.outputs.frontend_tag, 'rc') ||
-      contains(needs.prerelease-prep.outputs.backend_tag,  'rc') ||
-      contains(needs.prerelease-prep.outputs.admin_tag,    'rc')
-    )
-  }}
+# Component-specific prerelease (RC) step
+prerelease:
+  if: ${{ inputs.releases_created == 'true' && contains(inputs.tag_name, 'rc') }}
+
+# Component-specific final release step
+release:
+  if: ${{ inputs.releases_created == 'true' && !contains(inputs.tag_name, 'rc') }}
 ```
+
+This pattern keeps the release-please orchestration in one place while giving each
+component its own workflow file for tests, builds, and deployment steps.
 
 #### Why the `release-config.json` must update `prerelease-manifest.json`
 
