@@ -34,45 +34,41 @@ Given all additional testing- and publish-workflows are implemented compliant, a
 
 ### Configuration Files
 
-- `.github/prerelease-config.json`: Configuration for prerelease stage
-- `.github/release-config.json`: Configuration for final release stage
-- `.github/prerelease-manifest.json`: Tracks the prerelease version
-- `.github/release-manifest.json`: Tracks the release version
+Each component has its own set of configuration and manifest files:
+
+| Component | Prerelease config | Prerelease manifest | Release config | Release manifest |
+|-----------|-------------------|---------------------|----------------|-----------------|
+| frontend  | `prerelease-config-frontend.json` | `prerelease-manifest-frontend.json` | `release-config-frontend.json` | `release-manifest-frontend.json` |
+| backend   | `prerelease-config-backend.json`  | `prerelease-manifest-backend.json`  | `release-config-backend.json`  | `release-manifest-backend.json`  |
+| admin     | `prerelease-config-admin.json`    | `prerelease-manifest-admin.json`    | `release-config-admin.json`    | `release-manifest-admin.json`    |
+
+Keeping the configs and manifests separate per component avoids conflicts when two
+component workflows are triggered simultaneously by changes to different directories.
 
 ### Workflow Stages
 
-1. **Label Check**: Creates the necessary labels for release-please PRs
-2. **Prerelease Preparation** (`release.yaml`): Runs release-please once for all packages; outputs per-component tags
-3. **Create Release PRs** (`release.yaml`): When any RC tag is produced, runs release-please with `release-config.json` to open the final-release PRs
-4. **Component Release Workflows** (called in parallel from `release.yaml`):
-   - `release-frontend.yaml` — frontend-specific tests, build, and deploy
-   - `release-backend.yaml` — backend-specific tests, build, and deploy
-   - `release-admin.yaml` — admin-specific tests, build, and deploy
+Each component has a fully standalone workflow file that is triggered independently
+when files in that component's directory are pushed to `main`.
 
-Each component workflow receives two inputs from the orchestrator:
-- `releases_created` — whether release-please created a release on this run
-- `tag_name` — the tag produced for that specific package (e.g. `frontend-v1.11.0-rc.1`)
+```
+push frontend/** to main           push backend/** to main            push admin/** to main
+         |                                  |                                  |
+         v                                  v                                  v
+release-frontend.yaml              release-backend.yaml               release-admin.yaml
+  label-check                        label-check                        label-check
+  prerelease-prep                    prerelease-prep                    prerelease-prep
+  create-release-pr                  create-release-pr                  create-release-pr
+  prerelease-test                    prerelease-test                    prerelease-test
+  prerelease                         prerelease                         prerelease
+  post-prerelease                    post-prerelease                    post-prerelease
+  release                            release                            release
+  post-release                       post-release                       post-release
+```
 
-Inside each component workflow the same logic applies:
+Inside each workflow the jobs are conditioned on the release-please output for that component:
 - **No release created** (`releases_created == 'false'`): run component tests
-- **RC tag** (`tag_name` contains `rc`): build and deploy the prerelease
-- **Final tag** (`tag_name` does not contain `rc`): build and deploy to production
-
-```
-push to main
-    |
-    v
-label-check
-    |
-    v
-prerelease-prep (release-please -> outputs: frontend_tag, backend_tag, admin_tag)
-    |
-    +---> create-release-prs  (if any tag is RC -> open final-release PRs)
-    |
-    +---> frontend-release  ---> release-frontend.yaml (tests / prerelease / release)
-    +---> backend-release   ---> release-backend.yaml  (tests / prerelease / release)
-    +---> admin-release     ---> release-admin.yaml    (tests / prerelease / release)
-```
+- **RC tag** (`tag_name` contains `rc`): build/deploy the prerelease and open final-release PR
+- **Final tag** (`tag_name` does not contain `rc`): build/deploy to production
 
 ### Version Management
 
@@ -80,7 +76,7 @@ In this example the workflow updates version information in:
 - `frontend/version.txt`: Version tracking for the `frontend` package
 - `backend/version.txt`: Version tracking for the `backend` package
 - `admin/version.txt`: Version tracking for the `admin` package
-- `.github/prerelease-manifest.json`: Version manifest for release-please
+- `.github/prerelease-manifest-{component}.json`: Per-component prerelease version manifest
 - `custom-version-update-example/build.gradle.kts`: An additional file with a version marker, demonstrating how to keep arbitrary files in sync using the `extra-files` feature (attached to the `frontend` package)
 
 ### Named Package vs Root Package
@@ -99,58 +95,49 @@ This is the recommended approach for monorepos with multiple independently versi
 | Version file location | `version.txt` (repo root) | `frontend/version.txt` |
 | Changelog location | `CHANGELOG.md` (repo root) | `frontend/CHANGELOG.md` |
 
-#### Multi-Package Workflow Outputs and Component Workflows
+#### Standalone Component Workflows
 
-When multiple packages are defined, each exposes its own `<path>--tag_name` output.
-The orchestrator (`release.yaml`) collects them and passes each one to the matching
-component workflow via `workflow_call`:
+Each component workflow is fully independent. It runs release-please with its own config and
+manifest files and uses the `<path>--tag_name` output pattern to read back the tag for that
+specific package:
 
 ```yaml
-# In release.yaml — expose per-package tags
-outputs:
-  releases_created: ${{ steps.release.outputs.releases_created }}
-  frontend_tag: ${{ steps.release.outputs['frontend--tag_name'] }}
-  backend_tag:  ${{ steps.release.outputs['backend--tag_name'] }}
-  admin_tag:    ${{ steps.release.outputs['admin--tag_name'] }}
-
-# Call each component workflow in parallel
-frontend-release:
-  needs: [ prerelease-prep ]
-  uses: ./.github/workflows/release-frontend.yaml
-  with:
-    releases_created: ${{ needs.prerelease-prep.outputs.releases_created }}
-    tag_name: ${{ needs.prerelease-prep.outputs.frontend_tag }}
+# In release-frontend.yaml
+prerelease-prep:
+  outputs:
+    releases_created: ${{ steps.release.outputs.releases_created }}
+    tag_name: ${{ steps.release.outputs['frontend--tag_name'] }}
+  steps:
+    - id: release
+      uses: googleapis/release-please-action@...
+      with:
+        config-file: ".github/prerelease-config-frontend.json"
+        manifest-file: ".github/prerelease-manifest-frontend.json"
 ```
 
-Inside each component workflow (`release-frontend.yaml`, `release-backend.yaml`,
-`release-admin.yaml`) the job conditions use the per-component `inputs.tag_name`:
+Downstream jobs read `needs.prerelease-prep.outputs.tag_name` directly:
 
 ```yaml
-# Component-specific prerelease (RC) step
 prerelease:
-  if: ${{ inputs.releases_created == 'true' && contains(inputs.tag_name, 'rc') }}
+  if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
 
-# Component-specific final release step
 release:
-  if: ${{ inputs.releases_created == 'true' && !contains(inputs.tag_name, 'rc') }}
+  if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && !contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
 ```
 
-This pattern keeps the release-please orchestration in one place while giving each
-component its own workflow file for tests, builds, and deployment steps.
+#### Why the `release-config-{component}.json` must update `prerelease-manifest-{component}.json`
 
-#### Why the `release-config.json` must update `prerelease-manifest.json`
-
-When a final release PR is merged, release-please only updates the `release-manifest.json`.
-Without additional configuration the `prerelease-manifest.json` is **not** updated, causing the
+When a final release PR is merged, release-please only updates `release-manifest-{component}.json`.
+Without additional configuration the `prerelease-manifest-{component}.json` is **not** updated, causing the
 next prerelease to calculate an incorrect version (e.g. `1.9.0-rc.1` after releasing `2.0.0`).
 
-Each package in `release-config.json` has an `extra-files` entry that updates its own key in
-`prerelease-manifest.json` as part of the release PR:
+Each component's `release-config-{component}.json` has an `extra-files` entry that updates its own
+key in the corresponding `prerelease-manifest-{component}.json` as part of the release PR:
 
 ```json
 {
   "type": "json",
-  "path": ".github/prerelease-manifest.json",
+  "path": ".github/prerelease-manifest-frontend.json",
   "jsonpath": "$.frontend"
 }
 ```
