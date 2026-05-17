@@ -7,6 +7,11 @@ on:
     branches: [ "main" ]
     paths:
       - "frontend/**"
+      - ".github/workflows/release-frontend.yaml"
+      - ".github/prerelease-config-frontend.json"
+      - ".github/prerelease-manifest-frontend.json"
+      - ".github/release-config-frontend.json"
+      - ".github/release-manifest-frontend.json"
 
 # The different jobs of this workflow need the following permissions
 permissions:

@@ -7,6 +7,11 @@ on:
     branches: [ "main" ]
     paths:
       - "admin/**"
+      - ".github/workflows/release-admin.yaml"
+      - ".github/prerelease-config-admin.json"
+      - ".github/prerelease-manifest-admin.json"
+      - ".github/release-config-admin.json"
+      - ".github/release-manifest-admin.json"
 
 # The different jobs of this workflow need the following permissions
 permissions:
