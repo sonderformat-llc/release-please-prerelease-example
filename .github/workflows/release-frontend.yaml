@@ -1,0 +1,132 @@
+name: Release - Frontend
+
+on:
+  # Triggered independently when files in the frontend directory are pushed to main.
+  # This allows the frontend component to be released separately from backend and admin.
+  push:
+    branches: [ "main" ]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/release-frontend.yaml"
+      - ".github/prerelease-config-frontend.json"
+      - ".github/prerelease-manifest-frontend.json"
+      - ".github/release-config-frontend.json"
+      - ".github/release-manifest-frontend.json"
+
+# The different jobs of this workflow need the following permissions
+permissions:
+  contents: write
+  pull-requests: write
+  repository-projects: read
+  # only required for workflows in private repositories
+  actions: read
+
+concurrency:
+  group: release-frontend
+
+jobs:
+  # This job creates the necessary labels for the release-please PRs:
+  # https://github.com/googleapis/release-please-action/issues/1074
+  label-check:
+    name: Create release-please PR labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Add labels to the repository if not present
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "autorelease: pending" -c FBCA04 -d "release-please PR tagging - Pending release" || true
+          gh label create "autorelease: tagged" -c D4C5F9 -d "release-please PR tagging - Ready for release" || true
+          gh label create "autorelease: snapshot" -c D4C5F9 -d "release-please PR tagging - Ready for release" || true
+          gh label create "autorelease: published" -c 0E8A16 -d "release-please PR tagging - Released" || true
+
+  # This job creates or finalizes a prerelease pull request for the frontend package
+  # and provides the necessary outputs for the subsequent jobs.
+  prerelease-prep:
+    name: Create Frontend Prerelease Pull Request
+    runs-on: ubuntu-latest
+    needs: [ label-check ]
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      # For named packages, use the <path>--tag_name output pattern.
+      tag_name: ${{ steps.release.outputs['frontend--tag_name'] }}
+    steps:
+      - id: release
+        name: Run prerelease release-please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: ".github/prerelease-config-frontend.json"
+          manifest-file: ".github/prerelease-manifest-frontend.json"
+          #token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+
+  # When a prerelease (RC) tag is produced, run release-please with the release config
+  # to open the final-release pull request so it is ready to merge when QA signs off.
+  create-release-pr:
+    name: Create Frontend Release Pull Request
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Run release release-please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: ".github/release-config-frontend.json"
+          manifest-file: ".github/release-manifest-frontend.json"
+          #token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+
+  # This job runs frontend-specific tests before the creation of a prerelease
+  prerelease-test:
+    name: Run Frontend Prerelease Tests
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'false' }}
+    steps:
+      - name: Frontend Tests
+        run: |
+          echo "Running frontend-specific prerelease tests"
+
+  # This job builds and deploys the frontend prerelease artifact
+  prerelease:
+    name: Create Frontend Prerelease
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Frontend Prerelease Build and Deploy
+        run: |
+          echo "Building and deploying frontend prerelease ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job runs post-prerelease steps for the frontend
+  post-prerelease:
+    name: Post Frontend Prerelease Steps
+    runs-on: ubuntu-latest
+    needs: [ prerelease ]
+    steps:
+      - name: Post Frontend Prerelease Step
+        run: |
+          echo "Running frontend post-prerelease steps for ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job builds and deploys the final frontend production release
+  release:
+    name: Create Frontend Release
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && !contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Frontend Release Build and Deploy
+        run: |
+          echo "Building and deploying frontend production release ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job runs post-release steps for the frontend
+  post-release:
+    name: Post Frontend Release Steps
+    runs-on: ubuntu-latest
+    needs: [ release ]
+    steps:
+      - name: Post Frontend Release Step
+        run: |
+          echo "Running frontend post-release steps for ${{ needs.prerelease-prep.outputs.tag_name }}"
+

@@ -12,14 +12,8 @@
     { "type": "docs", "hidden": false, "section": "Docs" }
   ],
   "packages": {
-    ".": {
-      "type": "generic",
-      "extra-files": [
-        {
-          "type": "generic",
-          "path": "custom-version-update-example/build.gradle.kts"
-        }
-      ]
+    "admin": {
+      "type": "generic"
     }
   }
 }

@@ -1,0 +1,132 @@
+name: Release - Admin
+
+on:
+  # Triggered independently when files in the admin directory are pushed to main.
+  # This allows the admin component to be released separately from frontend and backend.
+  push:
+    branches: [ "main" ]
+    paths:
+      - "admin/**"
+      - ".github/workflows/release-admin.yaml"
+      - ".github/prerelease-config-admin.json"
+      - ".github/prerelease-manifest-admin.json"
+      - ".github/release-config-admin.json"
+      - ".github/release-manifest-admin.json"
+
+# The different jobs of this workflow need the following permissions
+permissions:
+  contents: write
+  pull-requests: write
+  repository-projects: read
+  # only required for workflows in private repositories
+  actions: read
+
+concurrency:
+  group: release-admin
+
+jobs:
+  # This job creates the necessary labels for the release-please PRs:
+  # https://github.com/googleapis/release-please-action/issues/1074
+  label-check:
+    name: Create release-please PR labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Add labels to the repository if not present
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create "autorelease: pending" -c FBCA04 -d "release-please PR tagging - Pending release" || true
+          gh label create "autorelease: tagged" -c D4C5F9 -d "release-please PR tagging - Ready for release" || true
+          gh label create "autorelease: snapshot" -c D4C5F9 -d "release-please PR tagging - Ready for release" || true
+          gh label create "autorelease: published" -c 0E8A16 -d "release-please PR tagging - Released" || true
+
+  # This job creates or finalizes a prerelease pull request for the admin package
+  # and provides the necessary outputs for the subsequent jobs.
+  prerelease-prep:
+    name: Create Admin Prerelease Pull Request
+    runs-on: ubuntu-latest
+    needs: [ label-check ]
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      # For named packages, use the <path>--tag_name output pattern.
+      tag_name: ${{ steps.release.outputs['admin--tag_name'] }}
+    steps:
+      - id: release
+        name: Run prerelease release-please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: ".github/prerelease-config-admin.json"
+          manifest-file: ".github/prerelease-manifest-admin.json"
+          #token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+
+  # When a prerelease (RC) tag is produced, run release-please with the release config
+  # to open the final-release pull request so it is ready to merge when QA signs off.
+  create-release-pr:
+    name: Create Admin Release Pull Request
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Run release release-please
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: ".github/release-config-admin.json"
+          manifest-file: ".github/release-manifest-admin.json"
+          #token: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+
+  # This job runs admin-specific tests before the creation of a prerelease
+  prerelease-test:
+    name: Run Admin Prerelease Tests
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'false' }}
+    steps:
+      - name: Admin Tests
+        run: |
+          echo "Running admin-specific prerelease tests"
+
+  # This job builds and deploys the admin prerelease artifact
+  prerelease:
+    name: Create Admin Prerelease
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Admin Prerelease Build and Deploy
+        run: |
+          echo "Building and deploying admin prerelease ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job runs post-prerelease steps for the admin
+  post-prerelease:
+    name: Post Admin Prerelease Steps
+    runs-on: ubuntu-latest
+    needs: [ prerelease ]
+    steps:
+      - name: Post Admin Prerelease Step
+        run: |
+          echo "Running admin post-prerelease steps for ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job builds and deploys the final admin production release
+  release:
+    name: Create Admin Release
+    runs-on: ubuntu-latest
+    needs: [ prerelease-prep ]
+    if: ${{ needs.prerelease-prep.outputs.releases_created == 'true' && !contains(needs.prerelease-prep.outputs.tag_name, 'rc') }}
+    steps:
+      - name: Admin Release Build and Deploy
+        run: |
+          echo "Building and deploying admin production release ${{ needs.prerelease-prep.outputs.tag_name }}"
+
+  # This job runs post-release steps for the admin
+  post-release:
+    name: Post Admin Release Steps
+    runs-on: ubuntu-latest
+    needs: [ release ]
+    steps:
+      - name: Post Admin Release Step
+        run: |
+          echo "Running admin post-release steps for ${{ needs.prerelease-prep.outputs.tag_name }}"
+

@@ -10,17 +10,13 @@
     { "type": "docs", "hidden": false, "section": "Docs" }
   ],
   "packages": {
-    ".": {
+    "admin": {
       "type": "generic",
       "extra-files": [
         {
-          "type": "generic",
-          "path": "custom-version-update-example/build.gradle.kts"
-        },
-        {
           "type": "json",
-          "path": ".github/prerelease-manifest.json",
-          "jsonpath": "$[\".\"]"
+          "path": ".github/prerelease-manifest-admin.json",
+          "jsonpath": "$.admin"
         }
       ]
     }
