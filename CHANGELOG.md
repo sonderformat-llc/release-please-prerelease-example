@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.9-rc](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.8...v1.10.9-rc) (2026-06-08)
+
+
+### Miscellaneous Chores
+
+* **deps:** bump actions/checkout in the prod-github-actions group ([#114](https://github.com/sonderformat-llc/release-please-prerelease-example/issues/114)) ([d210d57](https://github.com/sonderformat-llc/release-please-prerelease-example/commit/d210d5798d041c7f32e4c71d05fe2e263b07a21d))
+
 ## [1.10.8](https://github.com/sonderformat-llc/release-please-prerelease-example/compare/v1.10.7...v1.10.8) (2026-05-15)
 
 
